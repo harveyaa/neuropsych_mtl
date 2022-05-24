@@ -16,7 +16,7 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/single_CNN/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conn_bal_test/model0/'
 
 # SCRIPT
 hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
@@ -31,5 +31,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $task --num_epochs 100 --batch_size 8 --encoder 0 --head 0 --data_format 1 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
+    python $hps_balanced --tasks $task --type 'conn' --num_epochs 100 --batch_size 8 --encoder 0 --head 0 --data_format 1 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
 done

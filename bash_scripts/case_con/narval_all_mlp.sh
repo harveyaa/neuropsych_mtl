@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=all_MLP
+#SBATCH --job-name=all_conn_bal_test
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=15:00:00
+#SBATCH --time=20:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/mlp_all.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_conn_bal_test.out
 
 tasks='SZ ASD BIP DEL22q11_2 DUP22q11_2 DEL16p11_2 DUP16p11_2 DEL1q21_1 DUP1q21_1'
 
@@ -14,7 +14,7 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/all_MLP/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conn_bal_test/all/'
 
 # SCRIPT
 hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
@@ -28,5 +28,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
+    python $hps_balanced --tasks $tasks --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
 done
