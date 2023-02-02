@@ -30,8 +30,8 @@ def save_ids(ids, path_out, case):
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--p_pheno",help="path to pheno file",
-                        default='/home/harveyaa/projects/def-pbellec/harveyaa/data/pheno_01-12-21.csv')
+    parser.add_argument("--p_pheno",help="path to pheno file",dest='p_pheno',
+                        default='/Users/harveyaa/Documents/masters/data/pheno_26-01-22.csv')
     parser.add_argument("--p_out",help="path to outputs")
     parser.add_argument("--generate_figures",help="plots of datasets",action='store_true')
     args = parser.parse_args()
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     #######
     # IPC #
     #######
-    ipc = ['SZ','ASD','BIP']
+    ipc = ['SZ','ASD','BIP','ADHD']
     for case in ipc:  
         print(case)
         control = 'CON_IPC'
@@ -72,7 +72,17 @@ if __name__ == "__main__":
             'DEL16p11_2',
             #'DUP16p11_2',
             'DEL1q21_1',
-            'DUP1q21_1']
+            'DUP1q21_1',
+            'DEL15q11_2',
+            'DUP15q11_2',
+            'DUP15q13_3_CHRNA7',
+            'DEL2q13',
+            'DUP2q13',
+            'DUP16p13_11',
+            'DEL13q12_12',
+            'DUP13q12_12',
+            'DEL17p12',
+            'TAR_dup']
     
     for case in cnvs:
         print(case)
