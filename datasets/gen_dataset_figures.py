@@ -13,10 +13,11 @@ and the selected subset (all cases and closely matched controls) are plotted.
 """
 
 pheno_p = '/Users/harveyaa/Documents/masters/data/pheno_26-01-22.csv'
-out_p = './figures'
 
 conf = ['AGE','mean_conn','FD_scrubbed','SEX','SITE']
-cases = ['SZ','ASD','BIP','DEL22q11_2','DUP22q11_2','DEL16p11_2','DUP16p11_2','DEL1q21_1','DUP1q21_1']
+cases = ['DEL15q11_2','DUP15q11_2','DUP15q13_3_CHRNA7','DEL2q13','DUP2q13','DUP16p13_11',
+            'DEL13q12_12','DUP13q12_12','DEL17p12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
+            'DUP22q11_2','DEL16p11_2','DUP16p11_2','SZ','BIP','ASD','ADHD']
 
 ##############
 # LOAD PHENO #
@@ -35,6 +36,9 @@ sel_ids = dict(zip(cases,sel_ids))
 ###############
 # GEN FIGURES #
 ###############
+
+# FULL VS SUBSET
+out_p = './figures/full_vs_subset'
 for case in cases:
     ids = sel_ids[case]
     
@@ -59,4 +63,34 @@ for case in cases:
                 ax[i,1].set_xticklabels(ax[i,1].get_xticklabels(),rotation = 270)
     fig.suptitle(case)
     plt.tight_layout(pad = 1.5)
+    plt.savefig(os.path.join(out_p,f"{case}.png"),dpi=300)
+
+# CONF BY SITE
+out_p = './figures/conf_by_site'
+for case in cases:
+    ids = sel_ids[case]
+    df = pheno[pheno.index.isin(ids[0])].copy()
+
+    fig, ax = plt.subplots(1,4, figsize=(15,5))
+
+    if case == 'ASD':
+        sns.kdeplot(x = 'AGE', data = df,hue = 'SITE',ax=ax[0],legend=False)
+    else:
+        sns.kdeplot(x = 'AGE', data = df,hue = 'SITE',ax=ax[0])
+    sns.kdeplot(x = 'mean_conn', data = df,hue = 'SITE',ax=ax[1],legend=False)
+    sns.kdeplot(x = 'FD_scrubbed', data = df,hue = 'SITE',ax=ax[2],legend=False)
+    sns.countplot(data=df, x="SITE",hue='SEX',ax=ax[3],palette='Greens')
+
+    for i in range(3):
+        ax[i].set_yticks([])
+    for i in range(4):
+        ax[i].set_ylabel('')
+        
+    if case == 'ASD':
+        ax[3].set_xticklabels(ax[3].get_xticklabels(),rotation = 315,fontsize=5)
+    else:
+        ax[3].set_xticklabels(ax[3].get_xticklabels(),rotation = 315)
+
+    plt.suptitle(case,fontsize=15)
+    plt.tight_layout(pad=0.6)
     plt.savefig(os.path.join(out_p,f"{case}.png"),dpi=300)
