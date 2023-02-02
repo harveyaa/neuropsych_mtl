@@ -42,7 +42,7 @@ out_p = './figures/full_vs_subset'
 for case in cases:
     ids = sel_ids[case]
     
-    control = 'CON_IPC' if case in ['ASD','SZ','BIP'] else 'non_carriers'
+    control = 'CON_IPC' if case in ['ASD','SZ','BIP','ADHD'] else 'non_carriers'
     
     sites = pheno[pheno[case]==1]['SITE'].unique()
     df = pheno[(pheno['SITE'].isin(sites))
