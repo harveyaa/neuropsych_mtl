@@ -16,7 +16,7 @@ pheno_p = '/Users/harveyaa/Documents/masters/data/pheno_26-01-22.csv'
 
 conf = ['AGE','mean_conn','FD_scrubbed','SEX','SITE']
 cases = ['DEL15q11_2','DUP15q11_2','DUP15q13_3_CHRNA7','DEL2q13','DUP2q13','DUP16p13_11',
-            'DEL13q12_12','DUP13q12_12','DEL17p12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
+            'DEL13q12_12','DUP13q12_12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
             'DUP22q11_2','DEL16p11_2','DUP16p11_2','SZ','BIP','ASD','ADHD']
 
 ##############

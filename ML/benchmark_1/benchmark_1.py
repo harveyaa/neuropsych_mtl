@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
     # LOAD IDS
     cases = ['DEL15q11_2','DUP15q11_2','DUP15q13_3_CHRNA7','DEL2q13','DUP2q13','DUP16p13_11',
-            'DEL13q12_12','DUP13q12_12','DEL17p12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
+            'DEL13q12_12','DUP13q12_12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
             'DUP22q11_2','DEL16p11_2','DUP16p11_2','SZ','BIP','ASD','ADHD']
     ipc = ['SZ','BIP','ASD','ADHD']
 
@@ -178,11 +178,6 @@ if __name__ == "__main__":
     # STRAT BY SITE #
     #################
     print('STRATIFY BY SITE')
-    cases = ['DEL15q11_2','DUP15q11_2','DUP15q13_3_CHRNA7','DEL2q13','DUP2q13','DUP16p13_11',
-        'DEL13q12_12','DUP13q12_12','DEL17p12','TAR_dup','DEL1q21_1','DUP1q21_1','DEL22q11_2',
-        'DUP22q11_2','DEL16p11_2','DUP16p11_2','SZ','BIP','ASD','ADHD']
-    ipc = ['SZ','BIP','ASD','ADHD']
-
     results_master = []
     for i,case in enumerate(cases):
         print('\r {}/{}: {}                                '.format(i+1, len(cases), case))
