@@ -1,11 +1,13 @@
 # neuropsych_mtl
+This code repository is home to my master's project.
+Documentation to come.
+
+Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
+
 ![image](/stats/results/effect_size_cv.png)
 ![image](/ML/benchmark_1/results/stratify.png)
 
 ## Directory Structure
-This code repository is home to my master's project.
-Documentation to come.
-
 - bash_scripts
     - SLURM submission scripts for running parts of this code 
         - Mostly for narval (compute canada) 
