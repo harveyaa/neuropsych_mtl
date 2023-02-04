@@ -1,6 +1,6 @@
 # neuropsych_mtl
-![/stats/results/effect_size_cv.png]
-![/ML/benchmark_1/results/stratify.png]
+![image](/stats/results/effect_size_cv.png)
+![image](/ML/benchmark_1/results/stratify.png)
 
 ## Directory Structure
 This code repository is home to my master's project.
