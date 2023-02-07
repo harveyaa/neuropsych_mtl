@@ -7,17 +7,18 @@
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/sex_all.out
 
-#['ds000030', 'Cardiff', 'UKBB', 'BC', 'UCLA', 'SFARI', 'ABIDE','Orban', 'ADHD200', 'ABIDE2']
+# ['ds000030', 'Cardiff', 'UKBB', 'BC', 'UCLA', 'SFARI', 'ABIDE','Orban', 'ADHD200', 'ABIDE2']
+# Exclude ABIDE & ABIDE2 - all male
 tasks='ds000030 Cardiff UKBB BC UCLA SFARI Orban ADHD200'
 
 # DATA PATH
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conf/sex/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/sex/all/'
 
 # SCRIPT
-hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_conf.py'
+hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
@@ -28,5 +29,5 @@ do
     echo $p_out
     mkdir $p_out
    
-    python $hps_conf --tasks $tasks --type 'conn' --conf 'SEX' --n_subsamp 1000 --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+    python $hps_conf --tasks $tasks --type 'conn' --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done
