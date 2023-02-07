@@ -4,19 +4,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from sklearn.svm import SVC
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.linear_model import RidgeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 from argparse import ArgumentParser
 
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--p_pheno",help="path to pheno file",dest='p_pheno',
-                        default='/home/harveyaa/projects/def-pbellec/harveyaa/data/pheno_01-12-21.csv')
+                        default='/Users/harveyaa/Documents/masters/data/pheno_26-01-22.csv')
     parser.add_argument("--p_conn",help="path to connectomes file",dest='p_conn',
-                        default='/home/harveyaa/projects/def-pbellec/harveyaa/data/connectomes_01-12-21.csv')
+                        default='/Users/harveyaa/Documents/masters/data/connectomes_01-12-21.csv')
     parser.add_argument("--p_ids",help="path to dataset ids",dest='p_ids')
     parser.add_argument("--p_out",help="path to outputs",dest='p_out')
     args = parser.parse_args()
@@ -50,11 +53,14 @@ if __name__ == "__main__":
             'FD_scrubbed']
 
     # Define classifiers
-    clfs = {'SVC_1':SVC(C=1,class_weight='balanced'),
-            'SVC_10':SVC(C=10,class_weight='balanced'),
-            'SVC_100':SVC(C=100,class_weight='balanced'),
-            #'LR':LogisticRegression(class_weight='balanced'),
-            'kNN_5':KNeighborsClassifier()}
+    clfs = {
+        'LR':LogisticRegression(class_weight='balanced',max_iter=1000),
+        'SVC':SVC(C=100,class_weight='balanced',kernel='linear'),
+        'Ridge':RidgeClassifier(class_weight = 'balanced'),
+        'GNB':GaussianNB(),
+        'RF':RandomForestClassifier(class_weight='balanced'),
+        'kNN':KNeighborsClassifier(n_neighbors=1)
+        }
 
     #############
     # BENCHMARK #
@@ -67,10 +73,12 @@ if __name__ == "__main__":
             mean_acc_conn[clf] = []
     
     print('Beginning prediction...')
+    cases_exist = []
     for case in cases:
         print(case)
         # Load ids
         if os.path.exists(os.path.join(args.p_ids,f"{case}.csv")):
+            cases_exist.append(case)
             dataset_ids = pd.read_csv(os.path.join(args.p_ids,f"{case}.csv"),index_col=0)
 
             # Confound matrix
@@ -109,11 +117,12 @@ if __name__ == "__main__":
                         clfs[clf].fit(X_conn_train,y_train)
                         pred_conn = clfs[clf].predict(X_conn_test)
                         acc_conn[clf].append(accuracy_score(y_test,pred_conn))
+
+            for clf in clfs:
+                mean_acc_conf[clf].append(np.mean(acc_conf[clf]))
+                mean_acc_conn[clf].append(np.mean(acc_conn[clf]))
         else:
             print('No CV folds found.')
-        for clf in clfs:
-            mean_acc_conf[clf].append(np.mean(acc_conf[clf]))
-            mean_acc_conn[clf].append(np.mean(acc_conn[clf]))
     print('Done!\n')
 
     ###########
@@ -122,20 +131,22 @@ if __name__ == "__main__":
     print('Collecting results...')
     results = {}
     for clf in clfs:
-        results[clf] = pd.DataFrame([mean_acc_conf[clf],mean_acc_conn[clf]],columns=cases,index=['conf','conn']).transpose()
-    
-    print('Generating plot...')
-    title = 'Confound Accuracy'
-    xlabels=None
+        results[clf] = pd.DataFrame([mean_acc_conf[clf],mean_acc_conn[clf]],columns=cases_exist,index=['conf','conn']).transpose()
+    master_df = pd.concat(results.values(),keys=results.keys(),axis=1)
+    master_df.to_csv(os.path.join(args.p_out,'results.csv'))
 
-    fig,ax = plt.subplots(1,len(cases),figsize=(int(len(cases)/2)+7,6),sharey=True,sharex=True)
+    print('Generating plots...')
+    ##################
+    # BENCHMARK PLOT #
+    ##################
+    title = 'Balanced Test Sets - Confounds vs Connectomes'
 
-    plt.yticks([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
-    plt.ylim(0,1)
+    fig,ax = plt.subplots(1,len(cases),figsize=(12,5),sharey=True,sharex=True)
+
+    plt.yticks([0,0.1,0.2,0.3,0.4,0.45,0.5,0,55,0.6,0.7,0.8,0.9,1])
     sns.set_style('whitegrid')
-
     colors = ['navy','darkorchid','red','orange','dodgerblue','forestgreen']
-    for j,case in enumerate(cases):
+    for j,case in enumerate(cases_exist):
         for i,clf in enumerate(clfs):
             conf_acc = results[clf].loc[case,'conf']
             conn_acc = results[clf].loc[case,'conn']
@@ -147,16 +158,13 @@ if __name__ == "__main__":
                 mfc = colors[i]
                 ls = '-'
             ax[j].plot(i,conn_acc,marker='o',color=colors[i],ms=4,markerfacecolor=mfc)
-            ax[j].plot(i,conf_acc,marker='o',color=colors[i],ms=4,markerfacecolor=mfc,label=clf)
+            ax[j].plot(i,conf_acc,marker='o',color=colors[i],ms=4,markerfacecolor=mfc)
             ax[j].plot((i,i),(conf_acc,conn_acc),color=colors[i],ls=ls,label=clf)
             ax[j].set_xticklabels([])
             ax[j].set_xticks([])
             ax[j].set_xlim(-0.75,5.75)
 
-            if not xlabels is None:
-                ax[j].set_xlabel(xlabels[j],rotation=90) 
-            else:
-                ax[j].set_xlabel(case,rotation=270)
+            ax[j].set_xlabel(case,rotation=270)
 
             lines = ax[j].get_ygridlines()
             b = lines[5]
@@ -164,13 +172,67 @@ if __name__ == "__main__":
             b.set_linewidth(1.15)
             b.set_linestyle('--')
 
-        handles, _ = ax[-1].get_legend_handles_labels()
-        labels = clfs.keys()
+    handles, _ = ax[0].get_legend_handles_labels()
+    labels = clfs.keys()
 
     ax[0].set_ylabel('Accuracy')
-    fig.legend(handles, labels, loc=(0.1,0.2))
-    ax[int(len(cases)/2)].set_title(title)
+    fig.legend(handles, labels, loc=(0.06,0.21))
+    plt.suptitle(title)
+    plt.ylim(0.2,0.9)
     plt.tight_layout()
     plt.subplots_adjust(wspace=0)
-    plt.savefig(os.path.join(args.p_out,'conf_acc.png'),dpi=300)
+    plt.savefig(os.path.join(args.p_out,'benchmark.png'),dpi=300)
+    print('Done!\n')
+
+    ##################
+    # CONFOUND PLOT #
+    ##################
+    title = 'Balanced Test Sets - Confounds'
+
+    fig,ax = plt.subplots(1,len(cases),figsize=(12,5),sharey=True,sharex=True)
+
+    plt.yticks([0,0.1,0.2,0.3,0.4,0.45,0.5,0.55,0.6,0.7,0.8,0.9,1])
+    sns.set_style('whitegrid')
+    colors = ['navy','darkorchid','red','orange','dodgerblue','forestgreen']
+    for j,case in enumerate(cases_exist):
+        for i,clf in enumerate(clfs):
+            conf_acc = results[clf].loc[case,'conf']
+
+            mfc = colors[i]
+            ax[j].plot(i,conf_acc,marker='o',color=colors[i],ms=4,markerfacecolor=mfc)
+            ax[j].set_xticklabels([])
+            ax[j].set_xticks([])
+            ax[j].set_xlim(-0.75,5.75)
+
+            ax[j].set_xlabel(case,rotation=270)
+
+            lines = ax[j].get_ygridlines()
+            # 0.45
+            b = lines[5]
+            b.set_color('black')
+            b.set_linewidth(0.5)
+            b.set_linestyle('--')
+
+            # 0.50
+            b = lines[6]
+            b.set_color('black')
+            b.set_linewidth(1.15)
+            b.set_linestyle('--')
+
+            # 0.55
+            b = lines[7]
+            b.set_color('black')
+            b.set_linewidth(0.5)
+            b.set_linestyle('--')
+
+    handles, _ = ax[0].get_legend_handles_labels()
+    labels = clfs.keys()
+
+    ax[0].set_ylabel('Accuracy')
+    fig.legend(handles, labels, loc=(0.06,0.21))
+    plt.suptitle(title)
+    plt.ylim(0.2,0.9)
+    plt.tight_layout()
+    plt.subplots_adjust(wspace=0)
+    plt.savefig(os.path.join(args.p_out,'confounds.png'),dpi=300)
     print('Done!\n')
