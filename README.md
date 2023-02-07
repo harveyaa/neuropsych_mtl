@@ -6,6 +6,7 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 
 ![image](/stats/results/effect_size_cv.png)
 ![image](/ML/benchmark_1/results/stratify.png)
+![image](/ML/benchmark_2/results/benchmark.png)
 
 ## Directory Structure
 - bash_scripts
@@ -36,6 +37,9 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
         - benchmark_1.py
         - benchmark_1_plots.ipynb
     - benchmark_2
+        - results
+        - benchmark_2.py
+        - benchmark_2_plots.ipynb
 - MTL
 - stats
     - results
