@@ -12,10 +12,16 @@ import seaborn as sns
 
 from pymatch.Matcher import Matcher
 
-from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.linear_model import RidgeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 def save_ids(ids, path_out, case,fold=None):
+    """ Saves selected ids to a .txt file. """
     tag = f'{case}.txt' if fold is None else f'{case}_test_set_{fold}.txt'
     filename = os.path.join(path_out,tag)
     with open(filename, 'w') as file:
@@ -23,6 +29,7 @@ def save_ids(ids, path_out, case,fold=None):
             file.write(f"{i}\n")
 
 class HiddenPrints:
+    """ Class to hide print statements. """
     def __enter__(self):
         self._original_stdout = sys.stdout
         sys.stdout = open(os.devnull, 'w')
@@ -32,6 +39,11 @@ class HiddenPrints:
         sys.stdout = self._original_stdout
 
 def gen_split(dcase,dcon,yvar,test_size=0.25,seed=123):
+    """ Generates a split of the data:
+        - Randomly select section of case/control
+        - Run pymatch Matcher
+        - Return Matched subset of selection
+    """
     np.random.seed(seed)
 
     n_sub_test = int(dcase.shape[0]*test_size)
@@ -40,11 +52,19 @@ def gen_split(dcase,dcon,yvar,test_size=0.25,seed=123):
     m = Matcher(dcase[dcase.index.isin(case_select)],dcon,yvar=yvar)
     m.fit_scores(balance=True, nmodels=100)
     m.predict_scores()
-    m.match(method="min", nmatches=1, threshold=0.0009,with_replacement=False)
+    m.match(method="min", nmatches=1)
     return m.matched_data
 
 def gen_unique_splits(dcase,dcon,df,yvar,test_size=0.25,min_folds=5,max_fail=100,max_acc=0.55,min_acc=0.45,min_test_size=0.15):
-    clf = SVC(C=100,class_weight='balanced')
+    #clf = SVC(C=100,class_weight='balanced')
+    clfs = {
+        'LR':LogisticRegression(class_weight='balanced',max_iter=1000),
+        'SVC':SVC(C=100,class_weight='balanced',kernel='linear'),
+        'Ridge':RidgeClassifier(class_weight = 'balanced'),
+        'GNB':GaussianNB(),
+        'RF':RandomForestClassifier(class_weight='balanced'),
+        'kNN':KNeighborsClassifier(n_neighbors=1)
+        }
     conf = ['AGE','SEX','SITE','mean_conn','FD_scrubbed']
 
     accuracy = []
@@ -53,39 +73,52 @@ def gen_unique_splits(dcase,dcon,df,yvar,test_size=0.25,min_folds=5,max_fail=100
     test_sizes = []
     fail_attempts = 0
     while (len(subsets) != min_folds) and (fail_attempts < max_fail):
+        # Generate a random seed to keep track
         seed = np.random.randint(1e5)
         try:
             with HiddenPrints():
+                # Get a matched subset smaller than test_size
                 matches = gen_split(dcase,dcon,yvar,test_size=test_size,seed=seed)
+            # Record actual test size
             split_test_size = matches.shape[0]/df.shape[0]
 
+            # Format data
             X = pd.get_dummies(df[conf],['SEX','SITE'])
-            y = df[case]
+            y = df[yvar]
 
+            # Split data
             X_train = X[~X.index.isin(matches['og_idx'])]
             X_test = X[X.index.isin(matches['og_idx'])]
             y_train = y[~y.index.isin(matches['og_idx'])]
             y_test = y[y.index.isin(matches['og_idx'])]
 
-            clf.fit(X_train,y_train)
-            pred = clf.predict(X_test)
-            acc = accuracy_score(y_test,pred)
+            # Evaluate split
+            acc = []
+            for clf in clfs.values():
+                clf.fit(X_train,y_train)
+                pred = clf.predict(X_test)
+                acc.append(accuracy_score(y_test,pred))
+            max_acc_found = np.max(acc)
+            acc = np.mean(acc)
             
             fold_ids = matches['og_idx'].to_list()
-            if (min_acc < acc < max_acc) & (split_test_size > min_test_size):
+            if (min_acc < acc < max_acc) & (split_test_size > min_test_size) & (max_acc_found < max_acc):
+                # If no previous selections, save it
                 if len(subsets) == 0:
                     subsets.append(fold_ids)
                     accuracy.append(acc)
                     seeds.append(seed)
                     test_sizes.append(split_test_size)
                     print(f'Subsets: {len(subsets)}')
+
                 # Otherwise check if duplcate with existing selections
                 else:
                     duplicate = []
                     for subset in subsets:
                         diff = set(subset).difference(set(fold_ids))
                         duplicate.append(len(diff) == 0)
-                        
+
+                    # If good, save
                     if not np.any(duplicate):
                         subsets.append(fold_ids)
                         accuracy.append(acc)
@@ -93,6 +126,7 @@ def gen_unique_splits(dcase,dcon,df,yvar,test_size=0.25,min_folds=5,max_fail=100
                         test_sizes.append(split_test_size)
                         print(f'Subsets: {len(subsets)}')
 
+                    # If not, increase fail count
                     else:
                         fail_attempts += 1
                         if fail_attempts % 10 == 0: print(f'Fail: {fail_attempts}')
@@ -100,6 +134,7 @@ def gen_unique_splits(dcase,dcon,df,yvar,test_size=0.25,min_folds=5,max_fail=100
                 fail_attempts += 1
                 if fail_attempts % 10 == 0: print(f'Fail: {fail_attempts}')
 
+        # Get an exception and fail, increase fail count
         except:
             fail_attempts += 1
             if fail_attempts % 10 == 0: print(f'Fail: {fail_attempts}')
@@ -108,15 +143,15 @@ def gen_unique_splits(dcase,dcon,df,yvar,test_size=0.25,min_folds=5,max_fail=100
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--p_pheno",help="path to pheno file",
-                        default='/home/harveyaa/projects/def-pbellec/harveyaa/data/pheno_01-12-21.csv')
+    parser.add_argument("--p_pheno",help="path to pheno file",dest='p_pheno',
+                        default='/Users/harveyaa/Documents/masters/data/pheno_26-01-22.csv')
     parser.add_argument("--p_ids",help="path to dataset ids",
-                        default='/home/harveyaa/projects/def-pbellec/harveyaa/data/ids/datasets')
+                        default='/Users/harveyaa/Documents/masters/neuropsych_mtl/datasets')
     parser.add_argument("--p_out",help="path to outputs")
     parser.add_argument("--min_folds",help="minimum folds",type=int,default=5)
     parser.add_argument("--max_fail",help="max number of fails",type=int,default=100)
-    parser.add_argument("--min_acc",help="minimum accuracy to allow",type=float,default=0.45)
-    parser.add_argument("--max_acc",help="maximum accuracy to allow",type=float,default=0.55)
+    parser.add_argument("--min_acc",help="minimum accuracy to allow",type=float,default=0.40)
+    parser.add_argument("--max_acc",help="maximum accuracy to allow",type=float,default=0.60)
     parser.add_argument("--test_size",help="starting test size",type=float,default=0.3)
     parser.add_argument("--min_test_size",help="minimum allowable test size",type=float,default=0.1)
     parser.add_argument("--generate_figures",help="plots of test folds",action='store_true')
@@ -126,12 +161,12 @@ if __name__ == "__main__":
     # LOAD DATA #
     #############
     print('Loading data...')
-    # pheno file
     pheno = pd.read_csv(args.p_pheno,index_col=0)
 
-    # datasets
-    cases = ['SZ','ASD','BIP','DEL22q11_2','DUP22q11_2','DEL16p11_2','DUP16p11_2','DEL1q21_1','DUP1q21_1']
+    # Datasets
+    cases = ['DEL22q11_2']
 
+    # IDs
     sel_ids = []
     for case in cases:
         df = pd.read_csv(os.path.join(args.p_ids,f"{case}.txt"),header=None)
@@ -152,6 +187,8 @@ if __name__ == "__main__":
     for case in cases:
         print(case)
         control = 'CON_IPC' if case in ['SZ','ASD','BIP'] else 'non_carriers'
+
+        # DEL22q11_2 is single site, drop this from conf
         conf = ['AGE','SEX','SITE','mean_conn','FD_scrubbed'] if case != 'DEL22q11_2' else ['AGE','SEX','mean_conn','FD_scrubbed']
 
         p = pheno[pheno.index.isin(sel_ids[case][0].to_list())]
