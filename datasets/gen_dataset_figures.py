@@ -94,3 +94,30 @@ for case in cases:
     plt.suptitle(case,fontsize=15)
     plt.tight_layout(pad=0.6)
     plt.savefig(os.path.join(out_p,f"{case}.png"),dpi=300)
+
+# CONF BY GROUP
+out_p = './figures/conf_by_group'
+for case in cases:
+    ids = sel_ids[case]
+    df = pheno[pheno.index.isin(ids[0])].copy()
+
+    fig, ax = plt.subplots(1,4, figsize=(15,5))
+
+    sns.kdeplot(x = 'AGE', data = df,hue = case,ax=ax[0])
+    sns.kdeplot(x = 'mean_conn', data = df,hue = case,ax=ax[1],legend=False)
+    sns.kdeplot(x = 'FD_scrubbed', data = df,hue = case,ax=ax[2],legend=False)
+    sns.countplot(data=df, x="SITE",hue=case,ax=ax[3],palette='Greens')
+
+    for i in range(3):
+        ax[i].set_yticks([])
+    for i in range(4):
+        ax[i].set_ylabel('')
+        
+    if case == 'ASD':
+        ax[3].set_xticklabels(ax[3].get_xticklabels(),rotation = 315,fontsize=5)
+    else:
+        ax[3].set_xticklabels(ax[3].get_xticklabels(),rotation = 315)
+
+    plt.suptitle(case,fontsize=15)
+    plt.tight_layout(pad=0.6)
+    plt.savefig(os.path.join(out_p,f"{case}.png"),dpi=300)
