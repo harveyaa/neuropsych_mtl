@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=single_MLP_rand
+#SBATCH --job-name=conn_rand_test
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=5:00:00
@@ -31,5 +31,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $task --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --rand_test
+    python $hps_balanced --tasks $task --type 'conn' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --rand_test
 done
