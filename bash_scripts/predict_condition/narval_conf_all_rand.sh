@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=conf_all
-#SBATCH --time=15:00:00
+#SBATCH --job-name=conf_all_rand
+#SBATCH --time=20:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conf_all.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conf_all_rand.out
 
 tasks='SZ ASD BIP DEL22q11_2 DUP22q11_2 DEL16p11_2 DUP16p11_2 DEL1q21_1 DUP1q21_1'
 
@@ -12,14 +12,14 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conf/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/condition/random/confounds/all/'
 
 # SCRIPT
-hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
+hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
-echo 'Conf - All tasks MLP'
+echo 'Conf random test - All tasks MLP'
 for fold in 0 1 2 3 4
 do
     p_out=$p_out_parent'fold_'$fold

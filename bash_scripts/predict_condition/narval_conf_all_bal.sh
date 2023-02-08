@@ -26,5 +26,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --type 'conf' --num_epochs 100 --batch_size 8 --encoder 4 --head 4 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir
+    python $hps_balanced --tasks $tasks --type 'conf' --num_epochs 100 --batch_size 8 --encoder 4 --head 4 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
 done
