@@ -3,30 +3,28 @@ import torch
 from torch.utils.data import Subset
 from torch.utils.data import DataLoader
 
-from miniMTL.datasets import confDataset
+from miniMTL.datasets import caseControlDataset
 from miniMTL.models import *
 from miniMTL.training import Trainer
+from miniMTL.util import split_data
 from miniMTL.hps import HPSModel
 
 from argparse import ArgumentParser
 
 """
-hps_conf
+hps
 ------------
-This script is to run experiments using Hard Parameter Sharing (HPS) to predict a confound (tested with age and sex).
+This script is to run experiments using Hard Parameter Sharing (HPS) to predict condition status using random train/test splits.
 """
 
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--tasks",help="tasks",dest='tasks',nargs='*')
-    parser.add_argument("--conf",help="which confound to predict, 'SEX', 'AGE' or 'FD_scrubbed'.",default='SEX')
-    parser.add_argument("--type",help="which data type, 'conn', 'conf' or 'concat'.",default='concat')
-    parser.add_argument("--n_subsamp",help="how many subjects to subsample",default=None,type=int)
-    parser.add_argument("--encoder",help="Which encoder to use.",dest='encoder',default=3,type=int)
-    parser.add_argument("--head",help="Which head to use.",dest='head',default=3,type=int)
+    parser.add_argument("--encoder",help="Which encoder to use.",dest='encoder',default=0,type=int)
+    parser.add_argument("--head",help="Which head to use.",dest='head',default=0,type=int)
     parser.add_argument("--data_dir",help="path to data dir",dest='data_dir',
                         default='/home/harveyaa/Documents/fMRI/data/ukbb_9cohorts/')
-    parser.add_argument("--data_format",help="data format code",dest='data_format',default=0,type=int)
+    parser.add_argument("--data_format",help="data format code",dest='data_format',default=1,type=int)
     parser.add_argument("--log_dir",help="path to log_dir",dest='log_dir',default=None)
     parser.add_argument("--batch_size",help="batch size for training/test loaders",default=16,type=int)
     parser.add_argument("--lr",help="learning rate for training",default=1e-3,type=float)
@@ -48,14 +46,11 @@ if __name__ == "__main__":
 
     # Create datasets
     print('Creating datasets...')
-    studies = args.tasks
+    cases = args.tasks
     data = []
-    for study in studies:
-        print(study)
-        if (study == 'UKBB') & (args.n_subsamp is not None):
-            data.append(confDataset(study,p_pheno,conf=args.conf,conn_path=p_conn,n_subsamp=args.n_subsamp,type=args.type))
-        else:
-            data.append(confDataset(study,p_pheno,conf=args.conf,conn_path=p_conn,type=args.type))
+    for case in cases:
+        print(case)
+        data.append(caseControlDataset(case,p_pheno,conn_path=p_conn,type='conn',strategy='stratified',format=args.data_format))
     print('Done!\n')
     
     # Split data & create loaders & loss fns
@@ -63,25 +58,19 @@ if __name__ == "__main__":
     trainloaders = {}
     testloaders = {}
     decoders = {}
-    for d, study in zip(data,studies):
-        train_idx, test_idx = d.split_data()
+    for d, case in zip(data,cases):
+        train_idx, test_idx = d.split_data(random=args.rand_test,fold=args.fold)
         train_d = Subset(d,train_idx)
         test_d = Subset(d,test_idx)
-        trainloaders[study] = DataLoader(train_d, batch_size=args.batch_size, shuffle=True)
-        testloaders[study] = DataLoader(test_d, batch_size=args.batch_size, shuffle=True)
-
-        # Regression vs classification loss
-        if args.conf in ['FD_scrubbed','AGE']:
-            loss_fns[study] = nn.MSELoss()
-        else:
-            loss_fns[study] = nn.CrossEntropyLoss()
-
-        decoders[study] = eval(f'head{args.head}().double()')
+        trainloaders[case] = DataLoader(train_d, batch_size=args.batch_size, shuffle=True)
+        testloaders[case] = DataLoader(test_d, batch_size=args.batch_size, shuffle=True)
+        loss_fns[case] = nn.CrossEntropyLoss()
+        decoders[case] = eval(f'head{args.head}().double()')
     
     # Create model
     model = HPSModel(eval(f'encoder{args.encoder}().double()'),
-                    decoders,
-                    loss_fns)
+                decoders,
+                loss_fns)
     
     # Create optimizer & trainer
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)

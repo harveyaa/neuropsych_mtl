@@ -10,6 +10,12 @@ from miniMTL.hps import HPSModel
 
 from argparse import ArgumentParser
 
+"""
+hps_balanced
+------------
+This script is to run experiments using Hard Parameter Sharing (HPS) to predict condition status using balanced test sets.
+"""
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--tasks",help="tasks",dest='tasks',nargs='*')
