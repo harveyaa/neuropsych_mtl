@@ -59,7 +59,7 @@ if __name__ == "__main__":
     testloaders = {}
     decoders = {}
     for d, case in zip(data,cases):
-        train_idx, test_idx = d.split_data(random=args.rand_test,fold=args.fold)
+        train_idx, test_idx = d.split_data(random=True,splits=(0.75,0.25))
         train_d = Subset(d,train_idx)
         test_d = Subset(d,test_idx)
         trainloaders[case] = DataLoader(train_d, batch_size=args.batch_size, shuffle=True)
