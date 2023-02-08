@@ -6,7 +6,7 @@
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH --array=0-8
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/mlp_%a.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conn_rand_test_%a.out
 
 TASK_ARRAY=('SZ' 'ASD' 'BIP' 'DEL22q11_2' 'DUP22q11_2' 'DEL16p11_2' 'DUP16p11_2' 'DEL1q21_1' 'DUP1q21_1')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
@@ -19,7 +19,7 @@ id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_
 p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/condition/random/connectomes/'
 
 # SCRIPT
-hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
+hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
