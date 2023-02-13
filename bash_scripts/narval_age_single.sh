@@ -16,10 +16,10 @@ task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conf/age/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/age/'
 
 # SCRIPT
-hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_conf.py'
+hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
@@ -31,5 +31,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_conf --tasks $task --type 'conn' --conf 'AGE' --n_subsamp 1000 --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+    python $hps_conf --tasks $task --type 'conn' --conf 'AGE' --num_epochs 100 --batch_size 8 --encoder 3 --head 33 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done

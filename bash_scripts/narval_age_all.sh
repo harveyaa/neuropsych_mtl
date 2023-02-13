@@ -14,10 +14,10 @@ tasks='ds000030 Cardiff UKBB BC UCLA SFARI ABIDE Orban ADHD200 ABIDE2'
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conf/age/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/age/all/'
 
 # SCRIPT
-hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_conf.py'
+hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
@@ -27,6 +27,6 @@ do
     p_out=$p_out_parent'fold_'$fold
     echo $p_out
     mkdir $p_out
-   
-    python $hps_conf --tasks $tasks --type 'conn' --conf 'AGE' --n_subsamp 1000 --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+≈
+    python $hps_conf --tasks $tasks --type 'conn' --conf 'AGE' --num_epochs 100 --batch_size 8 --encoder 3 --head 33 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done
