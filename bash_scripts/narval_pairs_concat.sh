@@ -13,10 +13,10 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/concat_bal_test/pairs/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/neg_transfer/concat/'
 
 # SCRIPT
-hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
+hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 

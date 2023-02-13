@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=pairs_conn_bal_test
+#SBATCH --job-name=pairs_cnn
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=5:00:00
@@ -13,10 +13,10 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/results/conn_bal_test/pairs/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/neg_transfer/cnn/'
 
 # SCRIPT
-hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/hps_balanced.py'
+hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
@@ -34,5 +34,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
+    python $hps_balanced --tasks $tasks --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --encoder 0 --head 0 --data_format 1 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
 done
