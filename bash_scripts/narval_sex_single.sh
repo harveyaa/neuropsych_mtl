@@ -32,5 +32,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_conf --tasks $task --type 'conn' --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+    python $hps_conf --tasks $task --type 'conn' --n_subsamp 1000 --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done
