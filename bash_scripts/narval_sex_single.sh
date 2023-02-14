@@ -5,7 +5,7 @@
 #SBATCH --time=15:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-12
+#SBATCH --array=0-13
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_sex_%a.out
 
 # sites with at least 30 controls
