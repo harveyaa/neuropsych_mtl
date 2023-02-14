@@ -31,5 +31,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --encoder 0 --head 0 --data_format 1 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
+    python $hps_balanced --tasks $task --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --encoder 0 --head 0 --data_format 1 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
 done
