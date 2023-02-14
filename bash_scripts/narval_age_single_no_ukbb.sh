@@ -1,15 +1,16 @@
 #!/bin/bash
-#SBATCH --job-name=single_age
+#SBATCH --job-name=single_age_no_ukbb
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=15:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-16
+#SBATCH --array=0-13
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_age_%a.out
 
 # sites with at least 30 controls
-TASK_ARRAY=('ADHD1' 'ADHD3' 'ADHD5' 'ADHD6' 'HSJ' 'NYU' 'SZ1' 'SZ2' 'SZ3' 'SZ6' 'Svip1' 'Svip2' 'UCLA_CB' 'UCLA_DS1' 'UKBB11025' 'UKBB11026' 'UKBB11027' 'USM')
+# Exclude UKBB
+TASK_ARRAY=('ADHD1' 'ADHD3' 'ADHD5' 'ADHD6' 'HSJ' 'NYU' 'SZ1' 'SZ2' 'SZ3' 'SZ6' 'Svip1' 'Svip2' 'UCLA_CB' 'UCLA_DS1' 'USM')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 # DATA PATH

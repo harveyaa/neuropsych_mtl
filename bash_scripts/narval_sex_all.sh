@@ -7,9 +7,9 @@
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/sex_all.out
 
-# ['ds000030', 'Cardiff', 'UKBB', 'BC', 'UCLA', 'SFARI', 'ABIDE','Orban', 'ADHD200', 'ABIDE2']
-# Exclude ABIDE & ABIDE2 - all male
-tasks='ds000030 Cardiff UKBB BC UCLA SFARI Orban ADHD200'
+# sites with at least 30 controls
+# Exclude NYU, SZ1, SZ2, USM - insufficient females
+tasks='ADHD1 ADHD3 ADHD5 ADHD6 HSJ SZ3 SZ6 Svip1 Svip2 UCLA_CB UCLA_DS1 UKBB11025 UKBB11026 UKBB11027'
 
 # DATA PATH
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'

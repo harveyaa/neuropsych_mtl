@@ -5,12 +5,12 @@
 #SBATCH --time=15:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-7
+#SBATCH --array=0-12
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_sex_%a.out
 
-#['ds000030', 'Cardiff', 'UKBB', 'BC', 'UCLA', 'SFARI', 'ABIDE','Orban', 'ADHD200', 'ABIDE2']
-# Exclude ABIDE & ABIDE2 - all male
-TASK_ARRAY=('ds000030' 'Cardiff' 'UKBB' 'BC' 'UCLA' 'SFARI' 'Orban' 'ADHD200')
+# sites with at least 30 controls
+# Exclude NYU, SZ1, SZ2, USM - insufficient females
+TASK_ARRAY=('ADHD1' 'ADHD3' 'ADHD5' 'ADHD6' 'HSJ' 'SZ3' 'SZ6' 'Svip1' 'Svip2' 'UCLA_CB' 'UCLA_DS1' 'UKBB11025' 'UKBB11026' 'UKBB11027')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 # DATA PATH
