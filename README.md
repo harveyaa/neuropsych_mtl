@@ -8,6 +8,20 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 ![image](/ML/benchmark_1/results/stratify.png)
 ![image](/ML/benchmark_2/results/benchmark.png)
 
+## TODO:
+- Neg transfer experiments:
+    - Balanced:
+        - CNN ASD/SZ short one fold
+        - MLPconcat ASD/SZ short one fold
+        - deeper short many
+    - Rand:
+        - CNN ASD/SZ short one fold
+        - MLPconcat ASD/SZ short one fold
+        - run for deeper
+- Pred age experiments:
+    - MTL missing folds
+    - Single missing USM
+
 ## Directory Structure
 - bash_scripts
     - SLURM submission scripts for running parts of this code 
