@@ -2,7 +2,7 @@
 #SBATCH --job-name=age_all
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=20:00:00
+#SBATCH --time=25:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/age_all.out
