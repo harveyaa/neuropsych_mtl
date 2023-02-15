@@ -2,10 +2,10 @@
 #SBATCH --job-name=pairs_concat_bal_test
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=5:00:00
+#SBATCH --time=7:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=1-36
+#SBATCH --array=1
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/pair_%a.out
 
 # NEGATIVE TRANSFER STUDY - MLPconcat PAIRWISE
