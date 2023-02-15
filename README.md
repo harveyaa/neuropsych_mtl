@@ -9,18 +9,6 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 ![image](/ML/benchmark_2/results/benchmark.png)
 
 ## TODO:
-- Neg transfer experiments:
-    - Balanced:
-        - CNN ASD/SZ short one fold
-        - MLPconcat ASD/SZ short one fold
-        - deeper short many
-    - Rand:
-        - CNN ASD/SZ short one fold
-        - MLPconcat ASD/SZ short one fold
-        - run for deeper
-- Pred age experiments:
-    - MTL missing folds
-    - Single missing USM
 - NOT URGENT:
     - reorganize & fix paths
         - neg_transfer
