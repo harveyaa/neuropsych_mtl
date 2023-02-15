@@ -21,6 +21,13 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 - Pred age experiments:
     - MTL missing folds
     - Single missing USM
+- NOT URGENT:
+    - reorganize & fix paths
+        - neg_transfer
+        - neg_transfer_rand
+        - neg_transfer
+            - balanced
+            - random
 
 ## Directory Structure
 - bash_scripts
