@@ -7,6 +7,8 @@
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_conn_rand_test.out
 
+# CNVs & PSYCH STUDY - MTL CONDITIONS - RAND SPLIT SENSITIVITY ANALYSIS
+
 tasks='SZ ASD BIP DEL22q11_2 DUP22q11_2 DEL16p11_2 DUP16p11_2 DEL1q21_1 DUP1q21_1'
 
 # DATA PATH

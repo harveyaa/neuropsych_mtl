@@ -8,6 +8,8 @@
 #SBATCH --array=1-36
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/pair_%a.out
 
+# NEGATIVE TRANSFER STUDY - MLPconcat PAIRWISE
+
 # DATA PATH
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/hybrid/'

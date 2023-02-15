@@ -8,6 +8,8 @@
 #SBATCH --array=0-8
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conn_bal_test_%a.out
 
+# NEGATIVE TRANSFER STUDY - CNN BASELINE
+
 TASK_ARRAY=('SZ' 'ASD' 'BIP' 'DEL22q11_2' 'DUP22q11_2' 'DEL16p11_2' 'DUP16p11_2' 'DEL1q21_1' 'DUP1q21_1')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 

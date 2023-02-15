@@ -8,6 +8,8 @@
 #SBATCH --array=0-13
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_sex_%a.out
 
+# SIMPLE TARGETS STUDY - SINGLE TASK SEX
+
 # sites with at least 30 controls
 # Exclude NYU, SZ1, SZ2, USM - insufficient females
 TASK_ARRAY=('ADHD1' 'ADHD3' 'ADHD5' 'ADHD6' 'HSJ' 'SZ3' 'SZ6' 'Svip1' 'Svip2' 'UCLA_CB' 'UCLA_DS1' 'UKBB11025' 'UKBB11026' 'UKBB11027')

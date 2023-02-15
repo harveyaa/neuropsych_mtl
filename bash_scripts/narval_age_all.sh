@@ -7,6 +7,8 @@
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/age_all.out
 
+# SIMPLE TARGETS STUDY - MTL AGE
+
 # sites with at least 30 controls
 tasks='ADHD1 ADHD3 ADHD5 ADHD6 HSJ NYU SZ1 SZ2 SZ3 SZ6 Svip1 Svip2 UCLA_CB UCLA_DS1 UKBB11025 UKBB11026 UKBB11027 USM'
 
