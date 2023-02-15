@@ -5,7 +5,7 @@
 #SBATCH --time=7:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=1
+#SBATCH --array=1-36
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/pair_%a.out
 
 # NEGATIVE TRANSFER STUDY - CNN PAIRWISE - RAND SPLIT SENSITIVITY ANALSIS
