@@ -17,7 +17,7 @@ tasks='ADHD1 ADHD3 ADHD5 ADHD6 HSJ SZ3 SZ6 Svip1 Svip2 UCLA_CB UCLA_DS1 UKBB1102
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results/sex/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/sex/all/'
 
 # SCRIPT
 hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
