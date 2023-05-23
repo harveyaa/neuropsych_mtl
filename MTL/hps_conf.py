@@ -56,7 +56,7 @@ if __name__ == "__main__":
     data = []
     for site in sites:
         print(site)
-        data.append(confDataset(site,p_pheno,conf=args.conf,conn_path=p_conn,n_subsamp=args.n_subsamp,type=args.type))
+        data.append(confDataset(site,p_pheno,conf=args.conf,id_path=p_ids,conn_path=p_conn,n_subsamp=args.n_subsamp,type=args.type))
 
     print('Done!\n')
     
