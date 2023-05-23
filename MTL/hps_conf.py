@@ -21,9 +21,11 @@ if __name__ == "__main__":
     parser.add_argument("--tasks",help="tasks",dest='tasks',nargs='*')
     parser.add_argument("--conf",help="which confound to predict, 'SEX', 'AGE' or 'FD_scrubbed'.",default='SEX')
     parser.add_argument("--type",help="which data type, 'conn', 'conf' or 'concat'.",default='concat')
-    parser.add_argument("--n_subsamp",help="how many subjects to subsample",default=None,type=int)
+    parser.add_argument("--n_subsamp",help="how many subjects to subsample from UKBB sites",default=50,type=int)
     parser.add_argument("--encoder",help="Which encoder to use.",dest='encoder',default=3,type=int)
     parser.add_argument("--head",help="Which head to use.",dest='head',default=3,type=int)
+    parser.add_argument("--id_dir",help="path to data ods",dest='id_dir',
+                        default='/home/harveyaa/Documents/masters/neuropsych_mtl/datasets/cv_folds/age_sex/')
     parser.add_argument("--data_dir",help="path to data dir",dest='data_dir',
                         default='/home/harveyaa/Documents/fMRI/data/ukbb_9cohorts/')
     parser.add_argument("--data_format",help="data format code",dest='data_format',default=0,type=int)
@@ -31,6 +33,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size",help="batch size for training/test loaders",default=16,type=int)
     parser.add_argument("--lr",help="learning rate for training",default=1e-3,type=float)
     parser.add_argument("--num_epochs",help="num_epochs for training",default=100,type=int)
+    parser.add_argument("--fold",help="fold of CV",default=0,type=int)
     args = parser.parse_args()
     
     print('#############\n# HPS model #\n#############')
@@ -44,6 +47,7 @@ if __name__ == "__main__":
 
     # Define paths to data
     p_pheno = os.path.join(args.data_dir,'pheno_26-01-22.csv')
+    p_ids = args.id_dir
     p_conn = os.path.join(args.data_dir,'connectomes')
 
     # Create datasets
@@ -52,10 +56,8 @@ if __name__ == "__main__":
     data = []
     for site in sites:
         print(site)
-        if (site[:4] == 'UKBB') & (args.n_subsamp is not None):
-            data.append(confDataset(site,p_pheno,conf=args.conf,conn_path=p_conn,n_subsamp=args.n_subsamp,type=args.type))
-        else:
-            data.append(confDataset(site,p_pheno,conf=args.conf,conn_path=p_conn,type=args.type))
+        data.append(confDataset(site,p_pheno,conf=args.conf,conn_path=p_conn,n_subsamp=args.n_subsamp,type=args.type))
+
     print('Done!\n')
     
     # Split data & create loaders & loss fns
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     testloaders = {}
     decoders = {}
     for d, site in zip(data,sites):
-        train_idx, test_idx = d.split_data()
+        train_idx, test_idx = d.split_data(random=False,fold=args.fold)
         train_d = Subset(d,train_idx)
         test_d = Subset(d,test_idx)
         trainloaders[site] = DataLoader(train_d, batch_size=args.batch_size, shuffle=True)
