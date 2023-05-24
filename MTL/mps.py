@@ -58,7 +58,7 @@ if __name__ == "__main__":
     for case in cases:
         print(case)
         data.append(caseControlDataset(case,p_pheno,id_path=p_ids,conn_path=p_conn,
-                                        type=args.type,strategy=args.strategy,format=args.data_format))
+                                        type=args.type,strategy='balanced',format=args.data_format))
     print('Done!\n')
     
     # Split data & create loaders & loss fns
