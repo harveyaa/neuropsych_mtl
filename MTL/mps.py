@@ -20,7 +20,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--tasks",help="tasks",dest='tasks',nargs='*')
     parser.add_argument("--type",help="which data type, 'conn', 'conf' or 'concat'.",default='conn')
-    parser.add_argument("--preencoder",help="Which encoder to use.",dest='preencoder',default=3,type=int)
+    parser.add_argument("--preencoder",help="Which preencoder to use.",dest='preencoder',default=3,type=int)
     parser.add_argument("--encoder",help="Which encoder to use.",dest='encoder',default=33,type=int)
     parser.add_argument("--head",help="Which head to use.",dest='head',default=3,type=int)
     parser.add_argument("--id_dir",help="path to data ods",dest='id_dir',
