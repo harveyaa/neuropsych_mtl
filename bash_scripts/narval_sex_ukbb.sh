@@ -2,7 +2,7 @@
 #SBATCH --job-name=sex_ukbb_mtl
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=20:00:00
+#SBATCH --time=40:00:00
 #SBATCH --mem=5G
 #SBATCH --account=rrg-jacquese
 #SBATCH --array=0-11
@@ -19,7 +19,7 @@ tasks='UKBB11025 UKBB11026 UKBB11027'
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/sex/ukbb/mtl/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper16/sex/ukbb/mtl/'
 
 # SCRIPT
 hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
@@ -35,5 +35,5 @@ do
     echo $p_out
     mkdir $p_out
    
-    python $hps_conf --tasks $tasks --type 'conn' --n_subsamp $k --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+    python $hps_conf --tasks $tasks --type 'conn' --n_subsamp $k --conf 'SEX' --num_epochs 100 --batch_size 16 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done

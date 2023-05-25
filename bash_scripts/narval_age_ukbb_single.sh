@@ -2,7 +2,7 @@
 #SBATCH --job-name=age_ukbb_single
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=20:00:00
+#SBATCH --time=40:00:00
 #SBATCH --mem=5G
 #SBATCH --account=rrg-jacquese
 #SBATCH --array=0-11
@@ -17,7 +17,7 @@ k=${K_ARRAY[$SLURM_ARRAY_TASK_ID]}
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/age/ukbb/single/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper16/age/ukbb/single/'
 
 # SCRIPT
 hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
@@ -35,6 +35,6 @@ do
         echo $p_out
         mkdir $p_out
     
-        python $hps_conf --tasks $site --type 'conn' --n_subsamp $k --conf 'AGE' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+        python $hps_conf --tasks $site --type 'conn' --n_subsamp $k --conf 'AGE' --num_epochs 100 --batch_size 16 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
     done
 done
