@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=all_mps
+#SBATCH --job-name=all_mps_big
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=20:00:00
 #SBATCH --mem=5G
 #SBATCH --account=rrg-jacquese
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_mps.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_mps_big.out
 
 # CNVs & PSYCH STUDY - MTL CONDITIONS - INTRASITE CV
 
@@ -16,7 +16,7 @@ data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/intrasite/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper16/conditions/all_mps/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper16/conditions/all_mps_big/'
 
 # SCRIPT
 hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mps.py'
@@ -30,5 +30,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --type 'conn' --num_epochs 100 --batch_size 16 --preencoder 33 --encoder 33 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
+    python $hps_balanced --tasks $tasks --type 'conn' --num_epochs 100 --batch_size 16 --preencoder 333 --encoder 333 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
 done
