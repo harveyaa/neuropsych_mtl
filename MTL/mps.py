@@ -74,7 +74,7 @@ if __name__ == "__main__":
         trainloaders[case] = DataLoader(train_d, batch_size=args.batch_size, shuffle=True)
         testloaders[case] = DataLoader(test_d, batch_size=args.batch_size, shuffle=True)
         loss_fns[case] = nn.CrossEntropyLoss()
-        preencoders[case] = eval(f'preencoder{3}().double()')
+        preencoders[case] = eval(f'preencoder{args.preencoder}().double()')
         decoders[case] = eval(f'head{args.head}().double()')
     
     # Create model
