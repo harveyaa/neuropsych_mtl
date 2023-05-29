@@ -17,7 +17,7 @@ tasks='ADHD1 ADHD3 ADHD5 ADHD6 HSJ SZ3 SZ6 Svip1 Svip2 UCLA_CB UCLA_DS1 UKBB1102
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper16/sex/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/sex/all/'
 
 # SCRIPT
 hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
@@ -31,5 +31,5 @@ do
     echo $p_out
     mkdir $p_out
    
-    python $hps_conf --tasks $tasks --type 'conn' --n_subsamp 50 --conf 'SEX' --num_epochs 100 --batch_size 16 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
+    python $hps_conf --tasks $tasks --type 'conn' --n_subsamp 50 --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --data_dir $data_dir
 done
