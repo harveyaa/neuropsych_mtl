@@ -5,7 +5,7 @@
 #SBATCH --time=60:00:00
 #SBATCH --mem=5G
 #SBATCH --account=rrg-jacquese
-#SBATCH -array=0-59
+#SBATCH --array=0-59
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/age_ukbb_single_%a.out
 
 # UKBB LEARNING CURVE STUDY - SINGLE AGE
