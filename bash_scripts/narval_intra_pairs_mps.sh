@@ -18,7 +18,7 @@ id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_
 p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/neg_transfer/mps/'
 
 # SCRIPT
-hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mps.py'
+mps='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mps.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
@@ -28,7 +28,7 @@ source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 tasks="$(sed "${SLURM_ARRAY_TASK_ID}q;d" unique_pairs.txt)"
 echo $tasks
 
-echo 'paired task MLP on conn w/ balanced test sets on '$task
+echo 'paired task MLP on conn w/ intrasite CV on '$task
 mkdir $p_out_parent'pair_'$SLURM_ARRAY_TASK_ID
 for fold in 0 1 2 3 4
 do
@@ -36,5 +36,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $hps_balanced --tasks $tasks --type 'conn' --num_epochs 100 --batch_size 8 --preencoder 33 --encoder 33 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
+    python $mps --tasks $tasks --type 'conn' --num_epochs 100 --batch_size 8 --preencoder 33 --encoder 33 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold
 done
