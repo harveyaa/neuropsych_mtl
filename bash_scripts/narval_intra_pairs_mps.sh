@@ -2,7 +2,7 @@
 #SBATCH --job-name=pairs_sm_intra
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=5:00:00
+#SBATCH --time=10:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH --array=1-36
