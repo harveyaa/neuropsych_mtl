@@ -5,13 +5,13 @@
 #SBATCH --time=5:00:00
 #SBATCH --mem=5G
 #SBATCH --account=rrg-jacquese
-#SBATCH --array=0-8
+#SBATCH --array=9-10
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conn_intrasite_%a.out
 
 # CNVs & PSYCH STUDY - SINGLE TASK CONDITIONS - INTRASITE CV
 # NEGATIVE TRANSFER STUDY - mps big BASELINE
 
-TASK_ARRAY=('SZ' 'ASD' 'BIP' 'DEL22q11_2' 'DUP22q11_2' 'DEL16p11_2' 'DUP16p11_2' 'DEL1q21_1' 'DUP1q21_1')
+TASK_ARRAY=('SZ' 'ASD' 'BIP' 'DEL22q11_2' 'DUP22q11_2' 'DEL16p11_2' 'DUP16p11_2' 'DEL1q21_1' 'DUP1q21_1' 'ADHD' 'DEL15q11_2')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 # DATA PATH
