@@ -1,22 +1,22 @@
 #!/bin/bash
-#SBATCH --job-name=all_conn_intrasite
+#SBATCH --job-name=all_mlp_intra
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=20:00:00
+#SBATCH --time=30:00:00
 #SBATCH --mem=5G
-#SBATCH --account=rrg-jacquese
+#SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_conn_intrasite.out
 
 # CNVs & PSYCH STUDY - MTL CONDITIONS - INTRASITE CV
 
-tasks='SZ ASD BIP DEL22q11_2 DUP22q11_2 DEL16p11_2 DUP16p11_2 DEL1q21_1 DUP1q21_1'
+tasks='SZ ASD BIP ADHD DEL15q11_2 DEL22q11_2 DUP22q11_2 DEL16p11_2 DUP16p11_2 DEL1q21_1 DUP1q21_1'
 
 # DATA PATH
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_folds/intrasite/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/conditions/all/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/mtl/mlp/'
 
 # SCRIPT
 hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
