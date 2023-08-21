@@ -40,9 +40,9 @@ if __name__ == "__main__":
     
     print('#############\n# MPS model #\n#############')
     print('Task(s): ',args.tasks)
-    print('Preencoder: ',args.preencoder)
     print('Encoder: ',args.encoder)
     print('Head(s): ',args.head)
+    print('Experts: ',args.num_experts)
     print('Batch size: ',args.batch_size)
     print('LR: ', args.lr)
     print('Epochs: ', args.num_epochs)
