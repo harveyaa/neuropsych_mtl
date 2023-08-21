@@ -30,5 +30,5 @@ do
     echo $p_out
     mkdir $p_out
 
-    python $mmoe --tasks $tasks --type 'conn' --strategy 'balanced' --num_epochs 100 --batch_size 8 --num_experts 10 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
+    python $mmoe --tasks $tasks --type 'conn' --num_epochs 100 --batch_size 8 --num_experts 10 --encoder 3 --head 3 --data_format 0 --log_dir $p_out --id_dir $id_dir --data_dir $data_dir --fold $fold    
 done
