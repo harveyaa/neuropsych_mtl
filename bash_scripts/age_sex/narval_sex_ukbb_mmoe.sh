@@ -36,4 +36,4 @@ p_out=$p_out_parent$k'/fold_'$fold
 echo $p_out
 mkdir $p_out
    
-python $hps_conf --tasks $tasks --type 'conn' --n_subsamp $k --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --num_experts 6 --data_format 0 --fold $fold --log_dir $p_out --data_dir $data_dir
+python $mmoe --tasks $tasks --type 'conn' --n_subsamp $k --conf 'SEX' --num_epochs 100 --batch_size 8 --encoder 3 --head 3 --num_experts 6 --data_format 0 --fold $fold --log_dir $p_out --data_dir $data_dir
