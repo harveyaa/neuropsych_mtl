@@ -18,7 +18,7 @@ id_dir='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/datasets/cv_
 p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_paper/pairs/mmoe/'
 
 # SCRIPT
-mmoe='/home/harveyaa/projects/def-pbellec/harveyaa/miniMTL/examples/mmoe.py'
+mmoe='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mmoe.py'
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
