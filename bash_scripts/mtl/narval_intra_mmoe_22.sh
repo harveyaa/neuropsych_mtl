@@ -24,7 +24,8 @@ mmoe='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mmoe.py'
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
 
 echo 'All tasks MMOE - 22 experts'
-for fold in 0 1 2 3 4
+# for fold in 0 1 2 3 4
+for fold in 3 4
 do
     p_out=$p_out_parent'fold_'$fold
     echo $p_out
