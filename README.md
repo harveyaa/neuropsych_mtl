@@ -5,9 +5,9 @@ Documentation to come.
 Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 
 ![image](/MTL/results_paper/figures/UKBB_fig_colour.png)
-![image](/MTL/results_paper/figures/UKBB_fig_colour.png)
 ![image](/MTL/results_paper/sex/figures/st_vs_mtl.png)
 ![image](/MTL/results_paper/age/figures/st_vs_mtl.png)
+![image](/MTL/results_paper/mtl/figures/st_vs_mtl_chance_level.png)
 
 ![image](/MTL/results/neg_transfer/figures/quad_comparison.png)
 
