@@ -1,6 +1,4 @@
 # neuropsych_mtl
-This code repository is home to my master's project.
-Documentation to come.
 
 Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 
