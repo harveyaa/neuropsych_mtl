@@ -8,17 +8,7 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 ![image](/MTL/results_paper/sex/figures/st_vs_mtl.png)
 ![image](/MTL/results_paper/age/figures/st_vs_mtl.png)
 ![image](/MTL/results_paper/mtl/figures/st_vs_mtl_chance_level.png)
-
-![image](/MTL/results/neg_transfer/figures/quad_comparison.png)
-
-## TODO:
-- NOT URGENT:
-    - reorganize & fix paths
-        - neg_transfer
-        - neg_transfer_rand
-        - neg_transfer
-            - balanced
-            - random
+![image](/MTL/results_paper/figures/task_rel.png)
 
 ## Directory Structure
 - bash_scripts
@@ -52,7 +42,10 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
         - results
         - benchmark_2.py
         - benchmark_2_plots.ipynb
+    - benchmark_2
+        - TODO
 - MTL
+    - TODO
 - stats
     - results
     - dataset_exploration.ipynb
@@ -63,5 +56,7 @@ Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
         - Script for cross-validation of effect size (MTD)
     - mtd_stats.py
         - Script to generate effect sizes, p-values, confidence intervals (CIs), and count what survived FDR
+    - test_set_chance_level.ipynb
+        - Notebook to check the chance level in each dataset.
     - util.py
 
