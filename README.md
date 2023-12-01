@@ -4,8 +4,7 @@ Documentation to come.
 
 Accompanying package: [miniMTL](https://github.com/harveyaa/miniMTL)
 
-![image](/stats/results/effect_size_cv.png)
-![image](/ML/benchmark_1/results/stratify.png)
+![image](/ML/benchmark_3/baseline_MLPconn_chance_level.png)
 ![image](/ML/benchmark_2/results/benchmark.png)
 ![image](/MTL/results/condition/balanced/connectomes/figures/st_vs_mtl.png)
 ![image](/MTL/results/neg_transfer/figures/quad_comparison.png)
