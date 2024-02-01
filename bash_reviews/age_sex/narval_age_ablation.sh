@@ -40,10 +40,10 @@ hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_co
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
-mkdir $p_out_parent$task
+mkdir $p_out_parent$skip_task
 for fold in 0 1 2 3 4
 do
-    p_out=$p_out_parent$task'/fold_'$fold
+    p_out=$p_out_parent$skip_task'/fold_'$fold
     echo $p_out
     mkdir $p_out
 

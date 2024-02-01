@@ -6,7 +6,7 @@
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH --array=0-13
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_sex_%a.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/sex_ablation_%a.out
 
 # SIMPLE TARGETS STUDY - SINGLE TASK SEX
 
@@ -41,10 +41,10 @@ hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_co
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
-mkdir $p_out_parent$task
+mkdir $p_out_parent$skip_task
 for fold in 0 1 2 3 4
 do
-    p_out=$p_out_parent$task'/fold_'$fold
+    p_out=$p_out_parent$skip_task'/fold_'$fold
     echo $p_out
     mkdir $p_out
 
