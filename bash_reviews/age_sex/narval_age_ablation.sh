@@ -33,7 +33,7 @@ echo 'TASKS: '$tasks
 data_dir='/home/harveyaa/projects/def-pbellec/harveyaa/data/'
 
 # OUT PATH
-p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_reviews/age_ablation/'
+p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/results_reviews/age/age_ablation/'
 
 # SCRIPT
 hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_conf.py'
