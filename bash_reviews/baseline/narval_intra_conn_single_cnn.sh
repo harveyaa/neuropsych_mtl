@@ -5,7 +5,7 @@
 #SBATCH --time=5:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=9-10
+#SBATCH --array=0-10
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conn_cnn_intra_%a.out
 
 # NEGATIVE TRANSFER STUDY - CNN BASELINE - paper version (intra-site CV)
