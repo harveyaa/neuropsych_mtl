@@ -95,4 +95,8 @@ if __name__ == "__main__":
         print(key)
         print('Accuracy: ', metrics[key]['accuracy'])
         print('Loss: ', metrics[key]['loss'])
+        print('AUC: ', metrics[key]['auc'])
+        print('F1: ', metrics[key]['f1'])
+        print('Precision: ', metrics[key]['precision'])
+        print('Recall: ', metrics[key]['recall'])
     print()
