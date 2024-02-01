@@ -4,7 +4,7 @@
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=20:00:00
 #SBATCH --mem=5G
-#SBATCH --account=rrg-jacquese
+#SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/sex_all.out
 
 # SIMPLE TARGETS STUDY - MTL SEX

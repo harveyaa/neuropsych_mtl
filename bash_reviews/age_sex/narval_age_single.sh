@@ -4,7 +4,7 @@
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=15:00:00
 #SBATCH --mem=5G
-#SBATCH --account=rrg-jacquese
+#SBATCH --account=def-pbellec
 #SBATCH --array=0-17
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/single_age_%a.out
 
