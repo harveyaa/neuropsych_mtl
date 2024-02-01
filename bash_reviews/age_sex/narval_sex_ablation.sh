@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=single_sex
+#SBATCH --job-name=sex_ablation
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=15:00:00
