@@ -24,7 +24,7 @@ p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/re
 # SCRIPT
 mps='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mps.py'
 
-source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
+source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 echo 'Single task mps big on conn w/ intra-site CV on '$task
 mkdir $p_out_parent$task

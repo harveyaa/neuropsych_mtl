@@ -21,7 +21,7 @@ p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/re
 # SCRIPT
 hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_balanced.py'
 
-source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
+source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 echo 'All tasks CNN'
 for fold in 0 1 2 3 4

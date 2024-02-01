@@ -21,7 +21,7 @@ p_out_parent='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/re
 # SCRIPT
 mmoe='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/mmoe.py'
 
-source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env/bin/activate
+source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 echo 'All tasks MMOE - 22 experts'
 # for fold in 0 1 2 3 4
