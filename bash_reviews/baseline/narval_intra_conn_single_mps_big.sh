@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=single_conn_intrasite
+#SBATCH --job-name=mps_base
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
 #SBATCH --time=5:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-10
+#SBATCH --array=0-1
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/conn_intrasite_%a.out
 
 # CNVs & PSYCH STUDY - SINGLE TASK CONDITIONS - INTRASITE CV
