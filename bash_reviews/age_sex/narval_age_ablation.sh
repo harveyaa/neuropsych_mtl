@@ -2,7 +2,7 @@
 #SBATCH --job-name=age_ablation
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=15:00:00
+#SBATCH --time=25:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH --array=0-17
@@ -16,7 +16,8 @@ skip_task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 # build the new task list
 tasks=''
-for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+#for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+for i in 3 4 5 7 8 9 10
 do
     var=${TASK_ARRAY[$i]}
     if [ $var != $skip_task ]
