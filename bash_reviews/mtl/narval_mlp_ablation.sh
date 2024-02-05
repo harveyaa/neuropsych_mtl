@@ -41,7 +41,7 @@ hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hp
 
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
-mkdir $p_out_parent$skip_task
+#mkdir $p_out_parent$skip_task
 #for fold in 0 1 2 3 4
 for fold in 4
 do
