@@ -25,7 +25,8 @@ hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_co
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 echo 'All tasks MLPconn_shorter on conn predicting SEX'
-for fold in 0 1 2 3 4
+#for fold in 0 1 2 3 4
+for fold in 2 3 4
 do
     p_out=$p_out_parent'fold_'$fold
     echo $p_out
