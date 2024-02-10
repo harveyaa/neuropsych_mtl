@@ -2,7 +2,7 @@
 #SBATCH --job-name=mlp_ablation
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=15:00:00
+#SBATCH --time=25:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
 #SBATCH --array=0-10
