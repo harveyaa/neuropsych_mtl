@@ -2,17 +2,18 @@
 #SBATCH --job-name=age_ablation
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=25:00:00
+#SBATCH --time=40:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-17
+#SBATCH --array=1-4
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/age_ablation_%a.out
 
 # SIMPLE TARGETS STUDY - SINGLE TASK AGE
 
 # sites with at least 30 controls
 TASK_ARRAY=('ADHD1' 'ADHD3' 'ADHD5' 'ADHD6' 'HSJ' 'NYU' 'SZ1' 'SZ2' 'SZ3' 'SZ6' 'Svip1' 'Svip2' 'UCLA_CB' 'UCLA_DS1' 'UKBB11025' 'UKBB11026' 'UKBB11027' 'USM')
-skip_task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
+#skip_task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
+skip_task='Svip2'
 
 # build the new task list
 tasks=''
@@ -41,7 +42,8 @@ hps_conf='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hps_co
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 mkdir $p_out_parent$skip_task
-for fold in 0 1 2 3 4
+#for fold in 0 1 2 3 4
+for fold in $SLURM_ARRAY_TASK_ID
 do
     p_out=$p_out_parent$skip_task'/fold_'$fold
     echo $p_out
