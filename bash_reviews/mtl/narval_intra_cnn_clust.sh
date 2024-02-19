@@ -2,10 +2,11 @@
 #SBATCH --job-name=all_cnn_clust
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=40:00:00
+#SBATCH --time=50:00:00
 #SBATCH --mem=5G
+#SBATCH --array=0-4
 #SBATCH --account=def-pbellec
-#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_cnn_clust.out
+#SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_cnn_clust_%a.out
 
 # CNVs & PSYCH STUDY - MTL CONDITIONS - INTRASITE CV - CNN
 
@@ -24,7 +25,7 @@ hps_balanced='/home/harveyaa/projects/def-pbellec/harveyaa/neuropsych_mtl/MTL/hp
 source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 
 echo 'All tasks CNN'
-for fold in 0 1 2 3 4
+for fold in $SLURM_ARRAY_TASK_ID
 do
     p_out=$p_out_parent'fold_'$fold
     echo $p_out
