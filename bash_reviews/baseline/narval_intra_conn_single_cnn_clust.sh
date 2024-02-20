@@ -5,13 +5,13 @@
 #SBATCH --time=20:00:00
 #SBATCH --mem=5G
 #SBATCH --account=def-pbellec
-#SBATCH --array=0-2
+#SBATCH --array=0
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/cnn_clust_single_%a.out
 
 # NEGATIVE TRANSFER STUDY - CNN BASELINE - paper version (intra-site CV)
 
 #TASK_ARRAY=('SZ' 'ASD' 'BIP' 'DEL22q11_2' 'DUP22q11_2' 'DEL16p11_2' 'DUP16p11_2' 'DEL1q21_1' 'DUP1q21_1' 'ADHD' 'DEL15q11_2')
-TASK_ARRAY=('SZ' 'ASD' 'ADHD')
+TASK_ARRAY=('ASD')
 task=${TASK_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 # DATA PATH
@@ -29,7 +29,7 @@ source /home/harveyaa/projects/def-pbellec/harveyaa/mtl_env2/bin/activate
 echo 'Single task CNN on conn w/ intrasite CV on '$task
 mkdir $p_out_parent$task
 #for fold in 0 1 2 3 4
-for fold in 2 3 4
+for fold in 4
 do
     p_out=$p_out_parent$task'/fold_'$fold
     echo $p_out
