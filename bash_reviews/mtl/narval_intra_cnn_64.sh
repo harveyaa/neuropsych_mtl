@@ -2,7 +2,7 @@
 #SBATCH --job-name=all_cnn_64
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=50:00:00
+#SBATCH --time=70:00:00
 #SBATCH --mem=5G
 #SBATCH --array=0-4
 #SBATCH --account=def-pbellec
