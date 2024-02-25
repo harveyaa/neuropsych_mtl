@@ -2,9 +2,9 @@
 #SBATCH --job-name=all_cnn_clust
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=annabelle.ahrv@gmail.com
-#SBATCH --time=70:00:00
+#SBATCH --time=80:00:00
 #SBATCH --mem=5G
-#SBATCH --array=0-4
+#SBATCH --array=2-3
 #SBATCH --account=def-pbellec
 #SBATCH -o /home/harveyaa/projects/def-pbellec/harveyaa/slurm_output/all_cnn_clust_%a.out
 
