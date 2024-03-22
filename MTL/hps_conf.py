@@ -45,8 +45,6 @@ if __name__ == "__main__":
     print('Epochs: ', args.num_epochs)
     print('#############\n')
 
-    torch.manual_seed(999)
-
     # Define paths to data
     p_pheno = os.path.join(args.data_dir,'pheno_26-01-22.csv')
     p_ids = args.id_dir
